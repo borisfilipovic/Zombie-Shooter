@@ -14,6 +14,7 @@ public class CollisionWithPlayer : MonoBehaviour {
 	private float timer;
 	private GameController gameController;
 	private string gameControllerTag = "GameController";
+	AudioSource attackSound;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +25,12 @@ public class CollisionWithPlayer : MonoBehaviour {
 		GameObject gameControllerObject = GameObject.FindWithTag(gameControllerTag);
 		if (gameControllerObject != null) {
 			gameController = gameControllerObject.GetComponent<GameController> ();
+		}
+
+		/// Get attack sound.
+		AudioSource[] audios = GetComponents<AudioSource> (); 
+		if (audios.Length > 0) {
+			attackSound = audios [0];	
 		}
 	}
 	
@@ -64,6 +71,11 @@ public class CollisionWithPlayer : MonoBehaviour {
 
 		/// Play attack animation.
 		GetComponent<Animator> ().Play("attack");
+
+		/// Play attack sound.
+		if (attackSound != null) {
+			attackSound.Play ();
+		}
 
 		/// Notify game controller that zombie attacked player.
 		if (gameController != null) {
