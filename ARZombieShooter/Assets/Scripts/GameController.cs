@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
 	// Public properties.
 	public GameObject bloodyScreen;
+	public Text healthText;
+	public int health = 100;
+	public int enemyDamage = 5;
 
 	// Private properties.
 	public float bloodyScreenDuration = 2.0f;
@@ -17,14 +22,35 @@ public class GameController : MonoBehaviour {
 		Assert.IsNotNull(bloodyScreen);
 	}
 
+	// Update is called once per frame.
+	void Update () {
+		/// Check if player have any life left.
+		if (health <= 0) {
+			/// TODO: - Load game over scene.
+			/// SceneManager.LoadScene("GameOver");
+		}
+	}
+
 	public void ZombieAttack() {
 		/// Show bloody screen.
 		BloodyScreen(true);
+
+		/// Player have been hit so decrease players health.
+		PlayerHaveBeenHit ();
 	}
 
-	public void ZombieStoppedAttacking() {
+	public void ZombieStoppedAttacking () {
 		/// Remove bloody screen after time duration.
 		StartCoroutine(removeBloodyScreenAfterSomeTime());
+	}
+
+	void PlayerHaveBeenHit () {
+		/// Decrease player's health.
+		health -= enemyDamage;
+
+		/// Display new health on screen.
+		string stringHealth = health.ToString();
+		healthText.text = "" + stringHealth;
 	}
 
 	/// <summary>
