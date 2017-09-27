@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class CollisionWithPlayer : MonoBehaviour {
 
@@ -11,11 +12,19 @@ public class CollisionWithPlayer : MonoBehaviour {
 	private string playerTag = "MainCamera";
 	private bool zombieCollided = false;
 	private float timer;
+	private GameController gameController;
+	private string gameControllerTag = "GameController";
 
 	// Use this for initialization
 	void Start () {
 		/// Set initial values.
 		timer = 0.0f;
+
+		/// Get game controller script.
+		GameObject gameControllerObject = GameObject.FindWithTag(gameControllerTag);
+		if (gameControllerObject != null) {
+			gameController = gameControllerObject.GetComponent<GameController> ();
+		}
 	}
 	
 	// Update is called once per frame
@@ -32,7 +41,7 @@ public class CollisionWithPlayer : MonoBehaviour {
 	// Collision detected.
 	void OnCollisionEnter (Collision collision) {
 		if (collision.gameObject.tag == playerTag) {
-			Debug.Log ("Enter collision");
+			/// Zombie have collided.
 			zombieCollided = true;
 		}
 	}
@@ -40,7 +49,7 @@ public class CollisionWithPlayer : MonoBehaviour {
 	// Collision ended.
 	void OnCollisionExit (Collision collision) {
 		if (collision.gameObject.tag == playerTag) {
-			Debug.Log ("Enter collision");
+			/// Cancel zombie collision.
 			zombieCollided = false;
 		}
 	}
@@ -52,5 +61,10 @@ public class CollisionWithPlayer : MonoBehaviour {
 
 		/// Play attack animation.
 		GetComponent<Animator> ().Play("attack");
+
+		/// Notify game controller that zombie attacked player.
+		if (gameController != null) {
+			gameController.ZombieAttack (zombieCollided);
+		}
 	}
 }
