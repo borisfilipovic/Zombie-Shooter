@@ -16,18 +16,15 @@ public class GameController : MonoBehaviour {
 		/// Assert game objects.
 		Assert.IsNotNull(bloodyScreen);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-	public void ZombieAttack(bool zombieCollided) {
+	public void ZombieAttack() {
 		/// Show bloody screen.
 		BloodyScreen(true);
+	}
 
+	public void ZombieStoppedAttacking() {
 		/// Remove bloody screen after time duration.
-		removeBloodyScreenAfterSomeTime ();
+		StartCoroutine(removeBloodyScreenAfterSomeTime());
 	}
 
 	/// <summary>

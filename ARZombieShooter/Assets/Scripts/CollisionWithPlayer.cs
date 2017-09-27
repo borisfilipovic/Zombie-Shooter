@@ -32,7 +32,7 @@ public class CollisionWithPlayer : MonoBehaviour {
 		/// Set timer on every frame.
 		timer += Time.deltaTime;
 
-		if (zombieCollided && timer >= timeBetweenAttack ) {
+		if (zombieCollided && timer >= timeBetweenAttack) {
 			/// Zombie have collided with player so start attack animation.
 			Attack ();
 		}
@@ -47,10 +47,13 @@ public class CollisionWithPlayer : MonoBehaviour {
 	}
 
 	// Collision ended.
-	void OnCollisionExit (Collision collision) {
-		if (collision.gameObject.tag == playerTag) {
+	void OnCollisionExit (Collision collision) {		
+		if (collision.gameObject.tag == playerTag) {			
 			/// Cancel zombie collision.
 			zombieCollided = false;
+
+			/// Notify game controller that enemy stopped attackin.g
+			EnemyStoppedAttacking ();
 		}
 	}
 
@@ -64,7 +67,15 @@ public class CollisionWithPlayer : MonoBehaviour {
 
 		/// Notify game controller that zombie attacked player.
 		if (gameController != null) {
-			gameController.ZombieAttack (zombieCollided);
+			gameController.ZombieAttack ();
+		}
+	}
+
+	// Enemy stopped attacking.
+	void EnemyStoppedAttacking () {
+		/// Notify game controller that zombie attacked player.
+		if (gameController != null) {
+			gameController.ZombieStoppedAttacking ();
 		}
 	}
 }
