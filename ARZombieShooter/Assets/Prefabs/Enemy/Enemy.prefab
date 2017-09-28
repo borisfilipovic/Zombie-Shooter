@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 65893447321286884}
   - component: {fileID: 114612763442348410}
   - component: {fileID: 114287022840566150}
+  - component: {fileID: 114574028589931782}
   m_Layer: 0
   m_Name: z@walk
   m_TagString: Untagged
@@ -1424,6 +1425,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenAttack: 2
+--- !u!114 &114574028589931782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1304916946319254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cea278377b94500ae2d97e83e717d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114612763442348410
 MonoBehaviour:
   m_ObjectHideFlags: 1
