@@ -8,6 +8,7 @@ public class Shoot : MonoBehaviour {
 
 	// Public properties.
 	public float weaponDamage = 10.0f;
+	public float forceAdd = 300f;
 
 	// Private properties.
 	[SerializeField]
@@ -52,6 +53,11 @@ public class Shoot : MonoBehaviour {
 			} else { // We did not hit enemy so lets just fire shooting effect.
 				// Create and destroy particle effect.
 				CreateAndDestroyParticleEffect(shootingEffect, 0.2f, hit);
+			}
+
+			// If we hit rigid body then add some force to it.
+			if (hit.rigidbody != null) {
+				hit.rigidbody.AddForce(-hit.normal * 
 			}
 
 			// Load shooting effect.
